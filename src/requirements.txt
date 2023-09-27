@@ -1,0 +1,6 @@
+streamlit==x.x.x
+opencv-python==x.x.x
+numpy==x.x.x
+torch==x.x.x
+Pillow==x.x.x
+scikit-image==x.x.x
