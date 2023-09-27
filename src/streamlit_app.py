@@ -13,14 +13,18 @@ if torch.cuda.is_available():
     os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu_id)
 
 
-def get_image_download_link(img_array, file_name, file_type='png'):
-    img_array = cv2.cvtColor(img_array, cv2.COLOR_BGR2RGB)  
-    im_pil = Image.fromarray(img_array.astype('uint8')) 
-    buffered = BytesIO()
-    im_pil.save(buffered, format=file_type.upper(), quality=95)  
-    img_str = base64.b64encode(buffered.getvalue()).decode()
-    href = f'<a href="data:image/{file_type};base64,{img_str}" download="{file_name}.{file_type}">Download {file_name}</a>'
-    return href
+def download_image(image_array, file_name):
+    temp_file = tempfile.NamedTemporaryFile(delete=False)
+    cv2.imwrite(temp_file.name, image_array)
+    
+    with open(temp_file.name, 'rb') as f:
+        bytes = f.read()
+    st.download_button(
+        label="Download Image",
+        data=BytesIO(bytes),
+        file_name=file_name,
+        mime='image/png',
+    )
 
 @st.cache_data
 def perform_custom_segmentation(image, params):
@@ -199,6 +203,7 @@ def main():
             handle_color_picking()
             display_segmentation_results()
             calculate_and_display_label_percentages()
+            download_image(st.session_state.segmented_image, 'segmented_image.png')
 
 if __name__ == "__main__":
     main()
