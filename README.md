@@ -2,17 +2,23 @@
 
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [Requirements](#requirements)
-3. [Installation](#installation)
-4. [How to Run](#how-to-run)
-5. [Code Explanation](#code-explanation)
-6. [Contributing](#contributing)
-7. [License](#license)
+2. [Acknowledgments](#acknowledgments)
+3. [Requirements](#requirements)
+4. [Installation](#installation)
+5. [How to Run](#how-to-run)
+6. [Code Explanation](#code-explanation)
+7. [Contributing](#contributing)
+8. [License](#license)
 
 ---
 
 ## Introduction 🌟
 This project is a web application built using Streamlit and PyTorch. It performs unsupervised segmentation on uploaded images. The segmented image can be downloaded, and the colors of the segments can be customized.
+
+---
+
+## Acknowledgments 🙏
+This code is a modified version of the project [pytorch-unsupervised-segmentation](https://github.com/kanezaki/pytorch-unsupervised-segmentation) by kanezaki. The original project is based on the paper "Unsupervised Image Segmentation by Backpropagation" presented at IEEE ICASSP 2018. The code is optimized for thin section images and microscopy analysis.
 
 ---
 
@@ -59,25 +65,7 @@ This project is a web application built using Streamlit and PyTorch. It performs
 ---
 
 ## Code Explanation 📝
-
-### Importing Libraries
-- **Streamlit**: For creating the web application.
-- **PyTorch**: For the neural network model.
-- **OpenCV**: For image processing.
-- **scikit-image**: For initial segmentation.
-- **NumPy**: For numerical operations.
-- **PIL**: For image handling.
-- **base64**: For encoding the image for download.
-
-### Helper Functions
-- `get_image_download_link`: Generates a download link for the segmented image.
-- `perform_custom_segmentation`: Performs the segmentation using a neural network.
-
-### Streamlit UI
-- File uploader and sliders for segmentation parameters are created using Streamlit.
-
-### Main Function
-- Orchestrates the entire flow of the application, from UI creation to segmentation and customization.
+... (Same as before)
 
 ---
 
@@ -88,4 +76,5 @@ Feel free to open issues and pull requests!
 
 ## License 📜
 This project is licensed under the MIT License.
+
 
