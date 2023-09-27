@@ -15,18 +15,24 @@ if torch.cuda.is_available():
 
 
 def download_image(image_array, file_name):
-    temp_file = tempfile.NamedTemporaryFile(delete=False)
-    cv2.imwrite(temp_file.name, image_array)
-    
-    with open(temp_file.name, 'rb') as f:
-        bytes = f.read()
-    st.download_button(
-        label="Download Image",
-        data=BytesIO(bytes),
-        file_name=file_name,
-        mime='image/png',
-    )
-
+    try:
+        # Create a temporary file
+        temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.png')  # Explicitly set the file extension
+        success = cv2.imwrite(temp_file.name, image_array)
+        if not success:
+            st.error("Could not save image.")
+            return
+        with open(temp_file.name, 'rb') as f:
+            bytes = f.read()
+        st.download_button(
+            label="Download Image",
+            data=BytesIO(bytes),
+            file_name=file_name,
+            mime='image/png',
+        )
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+        
 @st.cache_data
 def perform_custom_segmentation(image, params):
     class Args(object):
