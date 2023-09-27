@@ -14,8 +14,11 @@ if torch.cuda.is_available():
 
 
 def get_image_download_link(img_array, file_name, file_type='png'):
+    img_array = (img_array * 255).astype(np.uint8)  
     im_pil = Image.fromarray(img_array)
-    img_str = base64.b64encode(im_pil.tobytes()).decode()
+    buffered = BytesIO()
+    im_pil.save(buffered, format=file_type.upper())
+    img_str = base64.b64encode(buffered.getvalue()).decode()
     href = f'<a href="data:image/{file_type};base64,{img_str}" download="{file_name}.{file_type}">Download {file_name}</a>'
     return href
 
