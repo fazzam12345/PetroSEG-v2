@@ -13,8 +13,6 @@ if torch.cuda.is_available():
     os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu_id)
 
 
-# Helper Function for Download Link
-@st.cache_data
 def get_image_download_link(img_array, file_name, file_type='png'):
     im_pil = Image.fromarray(img_array)
     img_str = base64.b64encode(im_pil.tobytes()).decode()
