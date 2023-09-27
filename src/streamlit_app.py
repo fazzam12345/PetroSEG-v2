@@ -140,8 +140,7 @@ def display_segmentation_results():
     st.write(f"Type of segmented_image: {type(st.session_state.segmented_image)}")
     st.write(f"Shape of segmented_image: {st.session_state.segmented_image.shape}")
     
-    download_link = get_image_download_link(st.session_state.segmented_image, 'updated_segmented_image')
-    st.markdown(download_link, unsafe_allow_html=True)
+    download_image(st.session_state.segmented_image, 'updated_segmented_image.png')
 
 # Handle color picking and other functionalities
 def handle_color_picking():
@@ -191,6 +190,14 @@ def main():
     # Streamlit UI
     st.title("Unsupervised Segmentation App")
     uploaded_image = st.file_uploader("Upload an image", type=["jpg", "png"])
+# Main function
+def main():
+    # Initialize session state
+    initialize_session_state()
+
+    # Streamlit UI
+    st.title("Unsupervised Segmentation App")
+    uploaded_image = st.file_uploader("Upload an image", type=["jpg", "png"])
 
     if uploaded_image:
         im = cv2.imdecode(np.frombuffer(uploaded_image.read(), np.uint8), 1)
@@ -203,7 +210,7 @@ def main():
             handle_color_picking()
             display_segmentation_results()
             calculate_and_display_label_percentages()
-            download_image(st.session_state.segmented_image, 'segmented_image.png')
+            download_image(st.session_state.segmented_image, 'segmented_image.png') 
 
 if __name__ == "__main__":
     main()
