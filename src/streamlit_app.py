@@ -8,6 +8,7 @@ import torch.nn as nn
 from PIL import Image
 import base64
 from io import BytesIO
+import tempfile
 
 if torch.cuda.is_available():
     os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu_id)
