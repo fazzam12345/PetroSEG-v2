@@ -64,8 +64,7 @@ This code is a modified version of the project [pytorch-unsupervised-segmentatio
 
 ---
 
-## Code Explanation 📝
-... (Same as before)
+
 
 ---
 
