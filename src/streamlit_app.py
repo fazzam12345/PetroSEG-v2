@@ -16,14 +16,24 @@ if torch.cuda.is_available():
 
 def download_image(image_array, file_name):
     try:
+        # Convert BGR to RGB
+        image_array = cv2.cvtColor(image_array, cv2.COLOR_BGR2RGB)
+
         # Create a temporary file
         temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.png')  # Explicitly set the file extension
+
+        # Save the image
         success = cv2.imwrite(temp_file.name, image_array)
+        
         if not success:
             st.error("Could not save image.")
             return
+
+        # Read the image into bytes
         with open(temp_file.name, 'rb') as f:
             bytes = f.read()
+
+        # Use Streamlit's download button to offer the image for download
         st.download_button(
             label="Download Image",
             data=BytesIO(bytes),
@@ -32,7 +42,9 @@ def download_image(image_array, file_name):
         )
     except Exception as e:
         st.error(f"An error occurred: {e}")
-        
+
+
+
 @st.cache_data
 def perform_custom_segmentation(image, params):
     class Args(object):
