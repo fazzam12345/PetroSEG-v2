@@ -1,6 +1,6 @@
-streamlit
-opencv
-numpy
-torch
-Pillow
-scikit-image
+streamlit==1.27.0 
+opencv==4.8.0 
+numpy==1.24.3 
+torch==2.0.1  
+Pillow==9.5.0  
+scikit-image==0.18.3  
