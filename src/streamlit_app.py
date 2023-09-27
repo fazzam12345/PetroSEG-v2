@@ -141,13 +141,7 @@ def get_parameters_from_sidebar():
 
 # Display segmentation results
 def display_segmentation_results():
-    st.image(st.session_state.segmented_image, caption='Updated Segmented Image', use_column_width=True)
-    
-    # Debugging lines
-    st.write(f"Type of segmented_image: {type(st.session_state.segmented_image)}")
-    st.write(f"Shape of segmented_image: {st.session_state.segmented_image.shape}")
-    
-    download_image(st.session_state.segmented_image, 'updated_segmented_image.png')
+    st.image(st.session_state.segmented_image, caption='Updated Segmented Image', use_column_width=True)   
 
 # Handle color picking and other functionalities
 def handle_color_picking():
