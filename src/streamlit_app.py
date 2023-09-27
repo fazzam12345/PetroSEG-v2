@@ -137,7 +137,7 @@ def initialize_session_state():
 def get_parameters_from_sidebar():
     st.sidebar.header("Segmentation Parameters")
     param_names = ['train_epoch', 'mod_dim1', 'mod_dim2', 'min_label_num', 'max_label_num']
-    param_values = [(1, 100, 8), (1, 128, 64), (1, 128, 32), (1, 20, 6), (1, 500, 256)]
+    param_values = [(1, 200, 8), (1, 128, 64), (1, 128, 32), (1, 20, 6), (1, 500, 256)]
     params = {name: st.sidebar.slider(name.replace('_', ' ').title(), *values) for name, values in zip(param_names, param_values)}
     return params
 
@@ -203,7 +203,9 @@ def main():
     st.info("""
     - **Training Epochs**: Higher values will lead to fewer segments but may take more time.
     - **Image Size**: For better efficiency, upload small-sized images.
+    - **Cache**: For best results, clear the cache between different image uploads. You can do this from the menu in the top-right corner.
     """)
+    
     uploaded_image = st.file_uploader("Upload an image", type=["jpg", "png"])
 
     if uploaded_image:
