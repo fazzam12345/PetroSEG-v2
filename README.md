@@ -63,7 +63,7 @@ This code is a modified version of the project [pytorch-unsupervised-segmentatio
     ```
 
 ---
-
+![Streamlit App Screenshot](https://github.com/fazzam12345/Unsupervised-Segmentation-App/blob/master/Streamlit_app.png?raw=true)
 
 
 ---
