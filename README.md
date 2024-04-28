@@ -18,7 +18,7 @@ This project is a web application built using Streamlit and PyTorch. It performs
 ---
 
 ## Acknowledgments 🙏
-This code is a modified version of the project [pytorch-unsupervised-segmentation](https://github.com/kanezaki/pytorch-unsupervised-segmentation) by kanezaki. The original project is based on the paper "Unsupervised Image Segmentation by Backpropagation" presented at IEEE ICASSP 2018. The code is optimized for thin section images and microscopy analysis.
+This code is inspired from the project [pytorch-unsupervised-segmentation](https://github.com/kanezaki/pytorch-unsupervised-segmentation) by kanezaki. The original project is based on the paper "Unsupervised Image Segmentation by Backpropagation" presented at IEEE ICASSP 2018. The code is optimized for thin section images and microscopy analysis.
 
 ---
 
