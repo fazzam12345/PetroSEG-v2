@@ -1,4 +1,4 @@
-# Unsupervised Segmentation App with Streamlit and PyTorch
+# Unsupervised Segmentation App Using Deep Learning
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -13,28 +13,27 @@
 ---
 
 ## Introduction 🌟
-This project is a web application built using Streamlit and PyTorch. It performs unsupervised segmentation on uploaded images. The segmented image can be downloaded, and the colors of the segments can be customized.
+This project is a web application built using Streamlit and Tensorflow. It performs unsupervised segmentation on uploaded images. The segmented image can be downloaded, and the colors of the segments can be customized.
 
 ---
 
-## Acknowledgments 🙏
+## Acknowledgments 
 This code is inspired from the project [pytorch-unsupervised-segmentation](https://github.com/kanezaki/pytorch-unsupervised-segmentation) by kanezaki. The original project is based on the paper "Unsupervised Image Segmentation by Backpropagation" presented at IEEE ICASSP 2018. The code is optimized for thin section images and microscopy analysis.
 
 ---
 
-## Requirements 📋
-- Python 3.x
+## Requirements 
 - Streamlit
-- PyTorch
 - OpenCV
 - NumPy
+- Tensorflow
 - scikit-image
 - PIL
 - base64
 
 ---
 
-## Installation 🛠️
+## Installation 
 
 1. **Clone the repository**
     ```bash
@@ -42,7 +41,7 @@ This code is inspired from the project [pytorch-unsupervised-segmentation](https
     ```
 2. **Navigate to the project directory**
     ```bash
-    cd unsupervised-segmentation
+    cd PetroSEG-v2
     ```
 3. **Install the required packages**
     ```bash
@@ -51,11 +50,11 @@ This code is inspired from the project [pytorch-unsupervised-segmentation](https
 
 ---
 
-## How to Run 🚀
+## How to Run
 
 1. **Navigate to the project directory**
     ```bash
-    cd unsupervised-segmentation
+    cd PetroSEG-v2
     ```
 2. **Run the Streamlit app**
     ```bash
@@ -68,12 +67,12 @@ This code is inspired from the project [pytorch-unsupervised-segmentation](https
 
 ---
 
-## Contributing 🤝
+## Contributing 
 Feel free to open issues and pull requests!
 
 ---
 
-## License 📜
+## License 
 This project is licensed under the MIT License.
 
 

@@ -1,8 +1,7 @@
-
 import streamlit as st
 import cv2
 import numpy as np
-from src.models import perform_custom_segmentation
+from src.models_tf import perform_custom_segmentation
 from src.utils import resize_image, download_image
 import os
 import torch
@@ -22,7 +21,11 @@ def get_parameters_from_sidebar() -> dict:
     target_size_height = st.sidebar.number_input("Target Size Height", 100, 1200, 750)
     params['target_size'] = (target_size_width, target_size_height)
     
+    # Add dropdown for segmentation method
+    params['segmentation_method'] = st.sidebar.selectbox('Segmentation Method', ['felzenszwalb', 'kmeans'], index=0)
+    
     return params
+
 def display_segmentation_results() -> None:
     """Display segmentation results"""
     st.image(st.session_state.segmented_image, caption='Updated Segmented Image', use_column_width=True)
@@ -36,7 +39,6 @@ def randomize_colors() -> None:
         mask = np.all(st.session_state.segmented_image == np.array(old_color), axis=-1)
         st.session_state.segmented_image[mask] = new_color
 
-    # Update color mappings in session state
     st.session_state.new_colors.update(random_colors)
     st.session_state.image_update_trigger += 1  # Trigger image update
 
@@ -49,19 +51,14 @@ def handle_color_picking() -> None:
         new_color_rgb = tuple(int(new_color.lstrip('#')[j:j+2], 16) for j in (0, 2, 4))
         st.session_state.new_colors[tuple(label)] = new_color_rgb
 
-    # Convert the new colors to hexadecimal for comparison
     new_colors_hex = {tuple(label): f'#{label[0]:02x}{label[1]:02x}{label[2]:02x}' for label in st.session_state.new_colors.values()}
 
     for old_color, new_color in st.session_state.new_colors.items():
-        # Convert the old color to hexadecimal for comparison
         old_color_hex = f'#{old_color[0]:02x}{old_color[1]:02x}{old_color[2]:02x}'
-        # Find the corresponding new color in hexadecimal
         new_color_hex = new_colors_hex[new_color]
-        # Update the segmented image with the new color
         mask = np.all(st.session_state.segmented_image == np.array(old_color), axis=-1)
         st.session_state.segmented_image[mask] = new_color
 
-    # After updating colors, trigger an update to the segmented image display
     st.session_state.image_update_trigger += 1
 
 def calculate_and_display_label_percentages() -> None:
@@ -71,7 +68,6 @@ def calculate_and_display_label_percentages() -> None:
     total_pixels = np.sum(counts)
     label_percentages = {int(label): (count / total_pixels) * 100 for label, count in zip(unique_labels, counts)}
 
-    # Create a mapping from grayscale label to RGB color
     label_to_color = {}
     for label in unique_labels:
         mask = final_labels == label
@@ -96,15 +92,13 @@ def main() -> None:
     if torch.cuda.is_available():
         os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu_id)
 
-    # Initialize session state if not already initialized
-    if 'segmented_image' not in st.session_state:
-        st.session_state.segmented_image = None
+    if 'segmented_images' not in st.session_state:
+        st.session_state.segmented_images = []
     if 'new_colors' not in st.session_state:
         st.session_state.new_colors = {}
     if 'image_update_trigger' not in st.session_state:
         st.session_state.image_update_trigger = 0
 
-    # Define params before using it
     params = get_parameters_from_sidebar()
 
     uploaded_image = st.sidebar.file_uploader("Upload an image", type=["jpg", "png", "jpeg", "bmp", "tiff", "webp"])
@@ -119,17 +113,17 @@ def main() -> None:
         image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         st.image(image_rgb, caption='Original Image', use_column_width=True)
 
-        # Use the target size specified by the user
         target_size = params['target_size']
         image_resized = resize_image(image_rgb, target_size)
 
         if st.sidebar.button("Start Segmentation"):
-            st.session_state.segmented_image = perform_custom_segmentation(image_resized, params)
+            st.session_state.segmented_images = perform_custom_segmentation(image_resized, params)
 
         if st.sidebar.button("Change Colors"):
             randomize_colors()
-
-        if st.session_state.segmented_image is not None:
+        if st.session_state.segmented_images:
+            epoch = st.sidebar.slider("Select Epoch", 1, len(st.session_state.segmented_images), len(st.session_state.segmented_images))
+            st.session_state.segmented_image = st.session_state.segmented_images[epoch - 1]
             handle_color_picking()
             display_segmentation_results()
             calculate_and_display_label_percentages()
