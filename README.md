@@ -1,4 +1,4 @@
-# Unsupervised Segmentation App Using Deep Learning
+# Unsupervised Segmentation Using Deep Learning and Superpixel Algorithms
 
 ## Table of Contents
 1. [Introduction](#introduction)
