@@ -1,3 +1,6 @@
+⚠️ Important Notice:
+The web application is no longer receiving updates. However, a desktop version of the app is now available at Grainsight on [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/petroseg/). The desktop version will continue to be actively maintained and updated.
+
 # Unsupervised Segmentation Using Deep Learning and Superpixel Algorithms
 
 ## Table of Contents
